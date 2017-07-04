@@ -1,0 +1,97 @@
+<!--{template header}-->
+<div id="xbody">
+  <style type="text/css"> 
+  <!-- 
+  @import url(template/default/map.css);
+  --> 
+  </style>
+  
+  <div id="xmap">
+    <div class="col701">
+      <div id="allmap" ></div>
+    </div>
+    <div class="col702" >
+    	<div id="xmapinfonav">
+        	<ul id="tab_nav">
+              <li><a href="#t_1">附近的人</a></li>
+              <li><a href="#t_2">附近的照片</a></li>
+        	</ul>
+             <div id="tab_content">
+              <div id="t_1">
+              
+              <!--{loop $username  $value}-->
+                 	$value["username"]<br>
+              <!--{/loop}-->
+              </div>
+              <div id="t_2">
+             <!--{loop $ree $val}-->
+             	<img src="../../attachment/$val['filepath']" width="50px;" height="50px;"><br>
+             <!--{/loop}-->
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7fa08c31358e225f24453d182872eea1"></script>
+
+<script type="text/javascript">
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");            // 创建Map实例
+	
+//map.centerAndZoom(new BMap.Point(116.352880, 40.003530), 11);     // 初始化地图,设置中心点坐标和地图级别
+map.centerAndZoom(new BMap.Point(117.153432,34.222465),17);     // 初始化地图,设置中心点坐标和地图
+map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+
+//显示可视区域内的标注
+function addMymarkers(){
+	
+    document.getElementById("info").innerHTML = '';
+    for(i=0;i<markers.length;i++){
+        var result = BMapLib.GeoUtils.isPointInRect(markers[i].point, map.getBounds());
+        if(result == true) map.addOverlay(markers[i]);
+        else map.removeOverlay(markers[i]);
+        document.getElementById("info").innerHTML += '<img src="' + markers[i].getIcon().imageUrl +'" />';        
+    }
+}
+//对地图级别变化、移动结束和图块加载完毕后，进行添加marker的操作
+map.addEventListener("tilesloaded", addMymarkers);
+map.addEventListener("zoomend", addMymarkers);
+map.addEventListener("moveend", addMymarkers);
+
+<!--{loop $ree $k=>$value}-->
+//创建点
+var p$k = new BMap.Point($value["longitude"],$value["latitude"]);
+//创建图标
+var icon$k = new BMap.Icon("http://uhome2.study365.org/template/default/image/pin.png", new BMap.Size(20,32));
+//创建marker，但不添加到地图上
+var m$k = new BMap.Marker(p$k,{icon:icon$k}); 
+//创建信息窗口
+var infoWindow$k = new BMap.InfoWindow("<p style='font-size:14px;' id='$k'><a href='#'>$value['picid']</p>");
+//绑定
+m$k .addEventListener("click", function(){this.openInfoWindow(infoWindow$k);});
+<!--{/loop}-->
+//建立一个marker的数组
+var markers = [
+				<!--{loop $ree $k=>$value}-->
+				    m$k
+				   <!--{if $k<$value}-->
+				    ,
+				   <!--{/if}-->
+				<!--{/loop}-->
+              ];
+			
+</script>
+
+
+
+<!--{template footer}-->

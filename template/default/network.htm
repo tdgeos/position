@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow: hidden;">
+<head>
+<title>中国矿业大学室内外位置服务系统 - 北京思行伟业数码科技有限公司</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=emulateie7"/>
+<meta name="author" content="netease"/>
+<meta name="version" content="1.0"/>
+<meta name="description" content="中国矿业大学室内外位置服务系统 - 北京思行伟业数码科技有限公司"/>
+<link rel="shortcut icon" href="image/favicon.png" />
+<link href="template/$_SCONFIG[template]/css/network.css" type="text/css" rel="stylesheet"/>
+<script language="javascript" type="text/javascript" src="common/cumt/js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="common/cumt/js/ajax_sync.js"></script>
+<script type="text/javascript" src="common/data/length.js"></script>
+<script type="text/javascript" src="js/yzm.js"></script>
+</head>
+<body>
+<div id="back">
+  <div class="m-logbg">
+		<img id="bg" src="image/bj.jpg" style="border:0; width:auto; max-height:990px; z-index:-1; margin:0px; padding:0px;">
+        <script type="text/javascript">
+		var height = document.body.clientHeight;
+		height = height * 0.4 -131 + 163+55+52+400;
+		//document.getElementById('bg').style.height = height+'px';
+		//document.getElementById('listing').style.height = (height-40)+'px';
+		</script>
+	</div>
+<div id="hmain">
+
+  <div class="m-stwrap1" id="mindex">
+
+    <div id="logoT">
+    <a href="index.php">
+        <div class="logo">
+            <h1 class="f1">1</h1>
+            <!-- <h2 class="f2">2<span class="f3">、</span>3<span class="f3">、</span>4</h2> -->
+        </div>
+    </a>
+    </div>
+    <div class="m-userlnks" style="position: absolute; left: 50%; margin-left: -310px; opacity: 1; visibility: visible; " id="mlogin">
+    <!–[if IE]>
+		<style>
+         .login{background:#323232}
+         .reg{background:#323232}
+         .review{background:#efefef}
+        </style>
+    <![endif]–>
+      <a href="#" id="alogin" class="login">登录</a>
+      <a href="#" id="areg" class="reg">注册</a>
+      <a href="do.php?ac=lostpasswd" class="review" target="_blank">找回密码<b>&gt;</b></a>
+    </div>
+    <div class="m-login" id="loginbox" style="height:100%; opacity: 0; overflow: hidden; z-index:100">
+      <div class="cont" id="put" style="opacity: 0;display:none;visibility: visible;">
+      <div>&nbsp;</div>
+      <div style="position: absolute; left:50%; margin-left:-166px;">
+        <div id="loginformid" style="opacity: 0; height:0;display:none">
+      <form name="loginform" action="do.php?ac=$_SCONFIG[login_action]&$url_plus&ref" method="post" onsubmit="return checkloginform(this)">
+      <ul class="w-user w-user-1">
+        <li class="w0">
+          <div class="inpt">                                     
+            <label id="llusername">用户名</label>
+            <label style=" text-align: right; right:10px; color:#F00" id="checkusername"></label>
+            <input id="lusername"  name="username"  class="txt" type="text" autocomplete="off" tabindex="1" onBlur="checkloginuser(this.value)">
+            
+          </div>
+        </li>
+        <li class="w0">
+          <div  class="inpt">
+            <label id="llpassword">密码</label>
+            <label style=" text-align: right; right:10px; color:#F00" id="checkpassword"></label>
+            <input type="password" name="password" id="lpassword" class="txt" tabindex="2" onBlur="checkpassword(this.value)" >
+          </div>
+        </li>
+        <li class="w0">
+          
+          <input name="loginsubmit" id="loginsubmit" tabindex="3" type="submit" class="btn" value="登录">
+        </li>
+        <li class="w0 w3">
+          <span class="chkbox" style="font-size:12px;">
+              <span class="c j-ok">
+              <input type="checkbox" id="cookietime" name="cookietime" value="315360000" $cookiecheck style="margin-bottom: -2px;">
+              </span>
+              <a tabindex="3" href="#">记住密码</a>
+          </span>
+        </li>
+      </ul>
+      <input type="hidden" name="refer" value="$refer" />
+      <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+      </form>
+  </div>
+<div id="regformid" style="opacity: 0; height:0;display:none">
+  <form id="registerform" name="registerform" action="do.php?ac=$_SCONFIG[register_action]&$url_plus&ref" method="post" onsubmit="return checkregform(this)">
+
+    <ul class="w-user w-user-1">
+        <li class="w0">
+            <div class="inpt j-tfocus">
+                <label id="lremail">常用邮箱</label>
+                <div id="checkemail" class="enroll"></div>
+                <input id="remail" class="txt" type="text" name="email" onBlur="checkemail(this.value)"/>
+            </div>
+           
+        </li>
+        <li class="w0">
+            <div class="inpt">
+                <label id="lrusername">用户名</label>
+            <div id="checkusername2" class="enroll"></div>
+                <input type="text" id="rusername" name="username" class="txt" onBlur="checkreguser(this.value)" />
+            </div>
+        </li>
+        <li class="w0">
+            <div class="inpt"><label id="lrpassword">设置密码</label>
+            <div id="checkpassword1" class="enroll"></div>
+            <input id="rpassword" type="password" name="password" class="txt" onBlur="checkpassword1(this.value,registerform.password2.value)"></div>
+        </li>
+        <li class="w0">
+            <div class="inpt"><label id="lrpassword2">重复密码</label>
+            <div id="checkpassword2" class="enroll"></div>
+            <input type="password"  id="rpassword2" name="password2" class="txt" onBlur="checkpassword2(registerform.password.value,this.value)"></div>
+        </li>
+        <li class="w0">
+            <div class="inpt">
+                <label id="lrseccode">验证码</label>
+            <div id="checkseccode" class="enroll"></div>
+            <input type="text" id="rseccode" name="seccode" class="txt" onBlur="checkseccode(this.value)">                
+			<a class="validt"><script>seccode();</script></a>
+            </div>
+        </li>
+        <li class="w0">
+        <input type="hidden" name="refer" value="space.php?do=home" />
+        <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+        <button type="submit" id="registersubmit" name="registersubmit" class="btn"  value="注册新用户" /><span>注册新用户</span></button>
+        </li>
+    </ul>
+  </form>
+</div>
+           
+      </div>
+      </div>
+     </div>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+function writehtml(id,value)
+{
+	document.getElementById(id).innerHTML = value;
+}
+function checkloginform(obj)
+{
+	var rr='';
+	rr = checkloginuser(obj.username.value);
+	if( rr == false)
+	{
+		return false;
+	}
+	rr = checkpassword(obj.password.value);
+	if( rr == false)
+	{
+		return false;
+	}
+	return true;
+}
+
+function checkregform(obj)
+{
+	if( !checkemail(obj.email.value))return false;
+	if( !checkreguser(obj.username.value))return false;	
+	if( !checkpassword1(obj.password.value,obj.password2.value))return false;
+	if( !checkpassword2(obj.password.value,obj.password2.value))return false;
+	return true;
+}
+function checkloginuser(value)
+{
+	var userName = value;
+	var unLen = userName.replace(/[^\x00-\xff]/g, "**").length;
+	if(unLen < length_username_min || unLen > length_username_max) {
+		writehtml('checkusername','允许长度'+length_username_min+'~'+length_username_max+'个字符');
+		return false;
+	}
+	writehtml('checkusername','');
+	return true;
+}
+function checkreguser(value)
+{
+	  var userName = value;
+	  var unLen = userName.replace(/[^\x00-\xff]/g, "**").length;
+	  if(unLen == 0)
+	  {
+		  writehtml('checkusername2','用户名不能为空');
+		  return false;
+	  }
+	  if(unLen < length_username_min || unLen > length_username_max) {
+		  writehtml('checkusername2','允许长度'+length_username_min+'~'+length_username_max+'个字符');
+		  return false;
+	  }
+	 writehtml('checkusername2','');
+	 var rs = study365ajax_sync('check','key=username&value='+value);
+	 if(rs != 'true')
+	 {
+		 writehtml('checkusername2',rs);
+		 return false;
+	 }
+	 writehtml('checkusername2','');
+	 return true;
+}
+function checkpassword(value)
+{
+	var password = value;
+	if(password == '' || /[\'\"\\]/.test(password)) {
+		writehtml('checkpassword','空或包含非法字符');
+		return false;
+	}
+	writehtml('checkpassword','');
+	return true;
+}
+function checkemail(value)
+{
+	if(value == '')
+	{
+		  writehtml('checkemail','邮箱不能为空');
+		 return false;
+		
+	}
+	 var szReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	 if(szReg.test(value) != true)
+	 {
+		 writehtml('checkemail','邮箱格式不正确');
+		 return false;
+	 }
+	 writehtml('checkemail','');
+	 var rs = study365ajax_sync('check','key=email&value='+value);
+	 if(rs != 'true')
+	 {
+		 writehtml('checkemail',rs);
+		 return false;
+	 }
+	 writehtml('checkemail','');
+	 return true;
+}
+function checkpassword1(value1,value2)
+{
+	var password = value1;
+	var password2 = value2;
+	var unLen = password.length;
+	if(unLen == 0)
+	{
+		writehtml('checkpassword1','密码不能为空');
+		return false;
+	}
+	if(unLen < length_password_min || unLen > length_password_max) {
+		writehtml('checkpassword1','允许长度'+length_password_min+'~'+length_password_max+'个字符');
+		return false;
+	}
+	writehtml('checkpassword1','');
+	if(/[\'\"\\]/.test(password)) {
+		writehtml('checkpassword1','不允许包含非法字符');
+		return false;
+	}
+	writehtml('checkpassword1','');
+	var csint = checkStrong(password);
+	switch(csint) {
+		case 1:
+			writehtml('checkpassword1','很弱');
+			break;
+		case 2:
+			writehtml('checkpassword1','一般');
+			break;
+		case 3:		
+			writehtml('checkpassword1','很强');
+			break;
+	}
+	return true;
+}
+function checkpassword2(value1,value2)
+{
+	  var password = value1;
+	  var password2 = value2;
+	  if(password2 == '')
+	  {
+		  writehtml('checkpassword2','密码不能为空');
+		  return false;
+	  }
+	  writehtml('checkpassword2','');
+	  if( password != '' && password != password2) {
+		  writehtml('checkpassword2','两次输入的密码不一致');
+		  return false;
+	  }
+	  writehtml('checkpassword2','');
+	 return true;
+}
+
+function checkseccode(value)
+{
+	// var rs = study365ajax_sync('check','key=password&value1='+value1+'&value2='+value2);
+	// if(rs != 'true')
+	// {
+	//	 document.getElementById('checkpassword1').innerHTML = rs;
+	//	 document.getElementById('checkpassword2').innerHTML = rs;
+	//	 return false;
+	 //}
+	 //return true;
+}
+	function isPassword(str){
+		if (str.length < 3) return false;
+		var len;
+		var i;
+		len = 0;
+		for (i=0;i<str.length;i++){
+			if (str.charCodeAt(i)>255) return false;
+		}
+		return true;
+	}
+	function charMode(iN){ 
+		if (iN>=48 && iN <=57) //数字 
+		return 1; 
+		if (iN>=65 && iN <=90) //大写字母 
+		return 2; 
+		if (iN>=97 && iN <=122) //小写 
+		return 4; 
+		else 
+		return 8; //特殊字符 
+	} 
+	//计算出当前密码当中一共有多少种模式 
+	function bitTotal(num){ 
+		modes=0; 
+		for (i=0;i<4;i++){ 
+			if (num & 1) modes++; 
+			num>>>=1; 
+		} 
+		return modes; 
+	} 
+
+//返回密码的强度级别 
+function checkStrong(pwd){ 
+	modes=0; 
+	for (i=0;i<pwd.length;i++){ 
+		//测试每一个字符的类别并统计一共有多少种模式. 
+		modes|=charMode(pwd.charCodeAt(i)); 
+	} 
+	return bitTotal(modes);
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+ $("#alogin").click(function(){
+	 if($("#loginbox").css("opacity") == 0 )
+	 {
+		$("#loginbox").css("opacity","1");
+		$("#put").css({"opacity":"1","width":"100%","height":"100%","display":"block"});
+		$("#loginformid").css({"opacity":"1","height":"auto","display":"block"});
+		$("#regformid").css({"opacity":"0","height":"0","display":"none"});
+		$("#loginbox .arr span").css("margin-left","-410px");
+		$("#hmain").css("top","15%");
+	 }else{$("#hmain").css("top","40%");
+		 if($("#loginformid").css("opacity") == 0)
+		 {
+			 $("#loginbox").css("opacity","1");
+			 $("#put").css({"opacity":"1","width":"100%","height":"100%","display":"block"});
+			 $("#loginformid").css({"opacity":"1","height":"auto","display":"block"});
+			 $("#regformid").css({"opacity":"0","height":"0","display":"none"});
+			 $("#loginbox .arr span").css("margin-left","-410px");
+			 $("#hmain").css("top","15%");
+		 }else{	
+			 $("#loginbox").css("opacity","0");
+			 $("#put").css({"opacity":"0","width":"0","height":"0","display":"none"});
+			 $("#loginformid").css({"opacity":"0","height":"0" ,"display":"none"});
+			 $("#regformid").css({"opacity":"0","height":"0","display":"none"});
+			 $("#loginbox .arr span").css("margin-left","-410px");
+		 }
+	 }
+	});
+	
+	 $("#areg").click(function(){
+	 if($("#loginbox").css("opacity") == 0 )
+	 {
+	 	$("#loginbox").css("opacity","1");
+		$("#put").css({"opacity":"1","width":"100%","height":"100%","display":"block"});
+		$("#loginformid").css({"opacity":"0","height":"0","display":"none"});
+		$("#regformid").css({"opacity":"1","height":"auto","display":"block"});
+		$("#loginbox .arr span").css("margin-left","0");
+		$("#hmain").css("top","15%");
+	 }else{$("#hmain").css("top","40%");
+		 if($("#regformid").css("opacity") == 0)
+		 {
+			 $("#loginbox").css("opacity","1");
+			 $("#put").css({"opacity":"1","width":"100%","height":"100%","display":"block"});
+			 $("#loginformid").css({"opacity":"0","height":"0","display":"none"});
+			 $("#regformid").css({"opacity":"1","height":"auto","display":"block"});
+			 $("#loginbox .arr span").css("margin-left","0");
+					$("#hmain").css("top","15%");
+		 }else{	
+			 $("#loginbox").css("opacity","0");
+			 $("#put").css({"opacity":"0","width":"0","height":"0","display":"none"});
+			 $("#loginformid").css({"opacity":"0","height":"0","display":"none"});
+			 $("#regformid").css({"opacity":"0","height":"0","display":"none"});
+			 $("#loginbox .arr span").css("margin-left","0");
+		 }
+	 }
+	});
+}); 
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("input").blur(function(){
+	var obj = $(this);
+	var id = obj.attr("id");
+	var value = obj.val();
+	var arr = [ "rusername", "rpassword","rpassword2","remail","rseccode"]; 
+	var arrv = [ "用户名", "设置密码","重复密码","常用邮箱","验证码"]; 
+	var index = $.inArray(id, arr);
+	if(index < 0 )
+	{
+		return '';
+	}		
+	var lid = 'l' + id;
+	if(value != '')
+	{
+	$('#'+lid).html('');
+	}else{
+	$('#'+lid).html(arrv[index]);
+	}
+	});
+}); 
+$(document).ready(function(){
+$("input").focus(function(){
+  	var obj = $(this);
+	var id = obj.attr("id");
+	var value = obj.val();
+	var arr = [ "rusername", "rpassword","rpassword","rpassword2","remail","rseccode"]; 
+	var index = $.inArray(id, arr);
+	if(index < 0 )
+	{
+		return '';
+	}	
+	var lid = 'l' + id;	
+
+	$('#'+lid).html('');
+
+});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+$("input").blur(function(){
+	var obj = $(this);
+	var id = obj.attr("id");
+	var value = obj.val();
+	var arr = [ "lusername", "lpassword" ]; 
+	var arrv = [ "用户名", "密码" ]; 
+	var index = $.inArray(id, arr);
+	if(index < 0 )
+	{
+		return '';
+	}		
+	var lid = 'l' + id;
+	if(value != '')
+	{
+	$('#'+lid).html('');
+	}else{
+	$('#'+lid).html(arrv[index]);
+	}
+	});
+	$("input").blur(function(){
+	var obj = $(this);
+	var id = obj.attr("id");
+	var value = obj.val();
+	var arr = [ "lusername", "lpassword" ]; 
+	var arrv = [ "用户名", "密码" ]; 
+	var index = $.inArray(id, arr);
+	if(index < 0 )
+	{
+		return '';
+	}		
+	var lid = 'l' + id;
+	if(value != '')
+	{
+	$('#'+lid).html('');
+	}else{
+	$('#'+lid).html(arrv[index]);
+	}
+	});
+}); 
+$(document).ready(function(){
+$("input").focus(function(){
+  	var obj = $(this);
+	var id = obj.attr("id");
+	var value = obj.val();
+	var arr = [ "lusername", "lpassword" ]; 
+	var index = $.inArray(id, arr);
+	if(index < 0 )
+	{
+		return '';
+	}	
+	var lid = 'l' + id;	
+
+	$('#'+lid).html('');
+
+});
+});
+</script>
+</body>
+</html>

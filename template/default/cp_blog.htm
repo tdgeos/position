@@ -1,0 +1,107 @@
+<!--{template header}-->
+
+<!--{if $_GET[op] == 'delete'}-->
+
+<h1>删除公告</h1>
+<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<div class="popupmenu_inner">
+<form method="post" action="cp.php?ac=blog&op=delete&blogid=$blogid">
+	<p>确定删除指定的公告吗？</p>
+	<p class="btn_line">
+		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+		<input type="hidden" name="deletesubmit" value="true" />
+		<input type="submit" name="btnsubmit" value="确定" class="w-bbtn w-bbtn-0 bindbtn ztag" />
+	</p>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+</div>
+
+<!--{else}-->
+
+<script language="javascript" src="image/editor/editor_function.js"></script>
+<script language="javascript" src="source/script_blog.js"></script>
+<div class="c_form">
+
+	<style type="text/css">
+		.userData {behavior:url(#default#userdata);}
+	</style>
+    <script src="../../js/ajax.js"></script>
+<script>
+ function Changescho(obj){
+	 alert(obj)
+	 var location1=document.getElementById('schoid').length;
+	 for(var i=0;i<location1;i++){
+		 var indexof=document.getElementById('schoid').index_x(i);
+		 alert(indexof);
+		 var select1=obj.options[obj.selectedIndex].value ;
+		 alert(select1);
+		 //document.getElementById('schoid').value
+		 //study365ajax('/source/ajax.php',document.getElementById('schoid').value,'ajaxtgest')
+	}
+}
+</script>
+
+	<form method="post" action="cp_new.php" enctype="multipart/form-data">
+		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+			<tr>
+				<td>
+					<select name="scho" id="schoid" onchange="study365ajax('/source/ajax.php','schoName='+document.getElementById('schoid').value,'ajaxcollege')" style="width:150px;">
+						<!--{loop $schoName $value}-->
+							<option value="$value['schoName']" selected>$value['schoName']</option>	
+						<!--{/loop}-->
+					</select>
+                 
+                  <div id="ajaxcollege">
+					<select name="coll" id="collegeid" onchange="study365ajax('/source/ajaxmajo.php','schoName='+document.getElementById('schoid').value+'&collName='+document.getElementById('collegeid').value,'ajaxmajo')" style="width:150px;">
+						  <!--{loop $coll $value}-->
+						<option value="$value['schoName']" selected>$value['collName']</option>	
+					<!--{/loop}-->
+					</select>
+                    </div>
+                 
+                 <div id="ajaxmajo">
+                     <select name="college" id="majoid" onchange="study365ajax('/source/clas.php','schoName='+document.getElementById('schoid').value+'&collName='+document.getElementById('collegeid').value+'&majoName='+document.getElementById('majoid').value,'ajaxclas')" style="width:150px;">
+						  <!--{loop $college $value}-->
+						<option value="$value['majoName']" selected>$value['majoName'] </option>	
+					      <!--{/loop}-->
+					</select>
+                    </div>
+                    
+                    <div id="ajaxclas"> 
+                    <select name="classid" id="classid" style="width:150px;">
+						<!--{loop $class $value}-->
+						<option value="$value['clasName'] " selected>$value['clasName'] </option>	
+					    <!--{/loop}-->
+					</select>
+                    </div>
+                    
+					<input type="text" class="txt" id="subject" name="subject" value="$blog[subject]" size="60" onblur="relatekw();" style="width:534px;" />
+				</td>
+			</tr>
+            <tr><td><div>&nbsp;</div></td></tr>
+			<tr>
+				<td>
+				<a id="doodleBox" href="magic.php?mid=doodle&showid=blog_doodle&target=uchome-ttHtmlEditor&from=editor" style="display:none"></a>
+				<textarea class="userData" name="message" id="uchome-ttHtmlEditor" style="height:100%;width:100%;display:none;border:0px">$blog[message]</textarea>
+				<iframe src="editor.php?charset=$_SC[charset]&allowhtml=$allowhtml&doodle=<!--{if isset($_SGLOBAL[magic][doodle])}-->1<!--{/if}-->" name="uchome-ifrHtmlEditor" id="uchome-ifrHtmlEditor" scrolling="no" border="0" frameborder="0" style="width:100%;border: 1px solid #C5C5C5;" height="400"></iframe>
+				</td>
+			</tr>
+		</table>
+		
+		<input type="hidden" name="blogsubmit" value="true" />
+		<input type="button" id="blogbutton" name="blogbutton" value="提交发布" onclick="validate(this);" style="display: none;" />
+		<input type="hidden" name="topicid" value="$_GET[topicid]" />
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+	</form>
+	
+	
+	<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
+		<tr>
+			<td>
+			<input type="button" id="issuance" onclick="document.getElementById('blogbutton').click();" value="保存发布" class="w-bbtn w-bbtn-0 bindbtn ztag" style="margin-top:18px;" /></td>
+		</tr>
+	</table>
+</div>
+
+<!--{/if}-->
+<!--{template footer}-->

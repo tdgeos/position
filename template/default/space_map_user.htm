@@ -1,0 +1,110 @@
+<!--{template header3}-->
+<div id="xbody">
+  <style type="text/css"> 
+  <!-- 
+  @import url(common/cumt/css/map.css);
+  @import url(common/cumt/css/mapnav.css);
+  --> 
+  </style>
+  
+  <div id="xmap">
+  
+      <div class="col702" >
+    	<div id="xmapinfonav">
+        	<ul id="tab_nav">
+              <li><a href="space.php?do=map&type=user" >附近的人</a></li>
+              <li><a href="space.php?do=map&type=pic">附近的照片</a></li>
+        	</ul>
+             <div id="tab_content">
+              <div class="listing" id="listing">
+                  <div style="height:100%;">
+                      <ul class="list fix" id="map_pan_list">
+                      </ul>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    <div class="col701">
+      <div id="allmap" ></div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+var height = document.body.clientHeight;
+height -= 82;
+document.getElementById('xbody').style.height = height+'px';
+document.getElementById('listing').style.height = (height-40)+'px';
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7fa08c31358e225f24453d182872eea1"></script>
+<script type="text/javascript" src="common/cumt/js/ajax_sync.js"></script>
+
+<script type="text/javascript">
+//创建地图
+var marker = new Array();
+var infoWindow = new Array();
+var map = new BMap.Map("allmap");
+map.centerAndZoom(new BMap.Point(117.153432,34.222465),14);     // 初始化地图,设置中心点坐标和地图级别
+map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+map.addControl(new BMap.MapTypeControl());          //添加地图类型控件
+map.enableKeyboard();							//启用键盘上下左右键移动地图
+map.addEventListener("tilesloaded", showInfo);
+map.addEventListener("moveend", showInfo);
+map.addEventListener("zoomend", showInfo);
+
+
+			  
+
+function showInfo(){
+ var cp = map.getCenter();
+ var bounds = map.getBounds();
+ var zoom = map.getZoom();
+ var relation = ['陌生人','好友','自己'];
+ var bmin = bounds.getSouthWest();
+ var bmax = bounds.getNorthEast();
+ var rs = study365ajax_sync('map_user','lngmin='+bmin.lng+'&latmin='+bmin.lat+'&lngmax='+bmax.lng+'&latmax='+bmax.lat+'&zoom='+zoom);
+ var users = eval('('+rs+')');
+ map.clearOverlays();
+ document.getElementById("map_pan_list").innerHTML = "重新加载中";
+ var infohtml = "";
+ 
+ marker = new Array();
+ infoWindow = new Array();
+
+ for (var i=0; i<users.count; i++)
+ {
+	 addmarker(i);
+	 
+ }
+ document.getElementById("map_pan_list").innerHTML = infohtml;
+ //alert(cp.lng + "," + cp.lat);
+ function addmarker(i)
+ {
+	  var pt = new BMap.Point(users.msg[i].longitude,users.msg[i].latitude);
+	  var myIcon = new BMap.Icon("common/cumt/image/male.png", new BMap.Size(68,88));
+	  marker[i] = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+	  map.addOverlay(marker[i]);              // 将标注添加到地图中
+	  //让小狐狸说话（创建信息窗口）
+	  html = "<p><a href='album.php?uid="+users.msg[i].uid+"'><img src='"+users.msg[i].gravatar+"' width='50px;' height='50px;'></a><span style='float:right; width:130px;'>昵称："+users.msg[i].nickname+"<br>个性签名："+users.msg[i].signature+"<br><em class='page'><!--{if $value['isfriend']=='1'}--><a href='cp.php?ac=friend&op=add&uid=$value['uid']' id='a_friend_$key' onclick='ajaxmenu(event, this.id, 1)' title='加好友'>加好友</a><!--{/if}--></em>&nbsp;&nbsp;</span></p><hr width='210px;'><p>动态：<!--{if $value[title_template]!=''}-->$value[title_template]<!--{else}-->没有动态！<!--{/if}--></p><p style='margin-top:5px;'><em class='page' style='float:left;'><a href='?uid="+users.msg[i].uid+"'>进入主页</em></a><em class='page' style='float:right;'><a href='cp.php?ac=pm&uid=22' id='a_pm' onclick='ajaxmenu(event, this.id, 1)'>发送消息</em></a></p>";
+	  infoWindow[i] = new BMap.InfoWindow(html);
+	  marker[i].addEventListener("click", function(){this.openInfoWindow(infoWindow[i]);});
+	  
+	  infohtml += "<li class='list_li  fix' mapid='"+i+"' link='/loupan/204738.html?from=map_loupanlist' onclick='showinfowindow(this)'><a class='a_img' href='"+users.msg[i].gravatar+"' target='_blank'><img src='"+users.msg[i].gravatar+"'></a><dl class='dl_info'><dd class='dd_02'>用户名："+users.msg[i].username+"</dd><dd class='dd_03'>签名："+users.msg[i].signature+"</dd><dd class='dd_03'>关系："+relation[users.msg[i].relation]+"</dd></dl></li>";
+	 // document.getElementById("map_pan_list").innerHTML += htmlinfo;
+ }
+}
+function showinfowindow(e){
+	var obj = e;
+	var id = obj.getAttribute("mapid");
+	marker[id].openInfoWindow( infoWindow[id] ); 
+}
+
+
+</script>
+
+<!--{template footer3}-->
+
+

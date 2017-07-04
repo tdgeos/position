@@ -1,0 +1,28 @@
+﻿<!--{template header}-->
+<div class="g-bd5">
+		<div class="g-bdc">
+			<div class="g-mn">
+			<div class="m-goodcnt m-goodcnt-3">
+				<ul id="tagColList">  
+						<li>
+                      <!--{loop $result $k=>$val}-->
+                      
+                      
+						<div class="itm" data-pid="9406098" data-tid="52001">
+                        <a href="space.php?uid=$val['uid']&do=album&picid=$val['picid']" class="ztag">
+                          <!--{if $val['filepath']==''}-->space.php?uid=1&do=album&picid=12
+                            <img src="../../attachment/201310/7/42_1381133141zJbn.jpg">
+                            <!--{else}-->
+                            <img src="../../attachment/$val['filepath']">
+                          <!--{/if}-->
+                        <span class="icover"></span>
+                        </a>
+                        </div>   
+                       
+                 
+                    <!--{/loop}-->
+					   </li>	
+				</ul>
+			</div>
+		</div>
+		</div></div>	

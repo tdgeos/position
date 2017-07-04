@@ -1,0 +1,369 @@
+﻿<!--{if empty($_TPL['getmore'])}-->	
+<!--{if empty($_SGLOBAL['inajax'])}-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta name="author" content="netease"/>
+	<meta name="version" content="1.0"/>
+<meta http-equiv="content-type" content="text/html; charset=$_SC[charset]" />
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<title><!--{if $_SN[$space[uid]]}-->{$_SN[$space[uid]]} - <!--{/if}-->中国矿业大学室内外位置服务系统</title>
+<script language="javascript" type="text/javascript" src="source/script_cookie.js"></script>
+<script language="javascript" type="text/javascript" src="source/script_common.js"></script>
+<script language="javascript" type="text/javascript" src="source/script_menu.js"></script>
+<script language="javascript" type="text/javascript" src="source/script_ajax.js"></script>
+<script language="javascript" type="text/javascript" src="source/script_face.js"></script>
+<script language="javascript" type="text/javascript" src="source/script_manage.js"></script>
+<style type="text/css">
+@import url(template/default/style.css);
+@import url(css/pt_lib_macro.css);
+</style>
+<link rel="shortcut icon" href="image/favicon.png" />
+<link rel="edituri" type="application/rsd+xml" title="rsd" href="xmlrpc.php?rsd=$space[uid]" />   
+   <script type="text/javascript">
+   (function(window,document){
+        if(top!=window) top.location=location.href;
+        document.uniqueID!=document.uniqueID&&!!location.hash&&(location.hash=location.hash);
+        window.focus();
+    })(this,document);
+	
+	window.isInDashboard = true;
+	</script>
+
+</head>
+<body class="page-lofter">
+
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+	<div id="header">
+	<!--{if $_SGLOBAL['ad']['header']}--><div id="ad_header"><!--{ad/header}--></div><!--{/if}-->
+<div id="lofterheadbar" class="g-hd">
+    <h1 class="m-logo"><a>中国矿业大学室内外位置服务系统</a></h1>
+    <div class="m-nav" id="topbar">
+	        <ul class="nav1 tbtag">
+	            <li class=""><a href="space.php?do=home">首页</a></li>
+				<li class=""><a href="space.php?do=map">地图</a></li>
+	            <li class=""><a href="space.php?uid=$_SGLOBAL['supe_uid']&do=blog&view=all">公告</a></li>
+                <li class=""><a href="space.php?do=pm<!--{if !empty($_SGLOBAL['member']['newpm'])}-->&filter=newpm<!--{/if}-->">消息<!--{if !empty($_SGLOBAL['member']['newpm'])}-->(新)<!--{/if}--></a></li>
+	            <li>
+	            	<a href="#" class="tbtag" onclick="abb2.className='a-w-sel a-w-sel-4 tbtag a-w-sel-do';abb1.style.marginTop=0" >更多<span class="more tbtag">&nbsp;&nbsp;&nbsp;</span></a>
+                    <!--onclick是更多的鼠标点击响应事件-->
+	            	<div id="abb2" class="a-w-sel a-w-sel-4 tbtag" onmousemove="abb2.className='a-w-sel a-w-sel-4 tbtag a-w-sel-do';abb1.style.marginTop=0" >
+                    <!--定义id abb2 挡鼠标在此区域 时候触发abb2的class显示内容-->
+		            	<div class="w-sel w-sel-4" id="abb1" style="margin-top: -240px; ">
+		                	<div class="selc">
+		                    	<div class="selcc tbtag">
+		                            <div class="seli"><a class="nx-1" href="cp.php?ac=profile">帐号设置</a></div>
+		                            <div class="seli"><a class="nx-2" href="cp.php?ac=friend&op=search">寻找好友</a></div>
+		                            <div class="seli"><a class="nx-3" href="cp.php?ac=common&op=logout&uhash=$_SGLOBAL[uhash]">退出</a></div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+	            </li>
+	        </ul>
+    </div>
+</div>
+	</div>
+
+	<div id="wrap" onmouseover="abb2.className='a-w-sel a-w-sel-4 tbtag ';abb1.style.marginTop=-240" >
+	<!--当鼠标进入此区域时abb2的事件将abb1移除显示区域-->
+	<!--{if empty($_TPL['nosidebar'])}-->
+	<div id="main">
+		<div id="mainarea">
+		<!--{if $_SGLOBAL['ad']['contenttop']}--><div id="ad_contenttop"><!--{ad/contenttop}--></div><!--{/if}-->
+	<!--{/if}-->
+
+<!--{/if}-->
+
+
+
+<div id="content">
+	<div class="feed">
+	<div id="feed_div" class="enter-content">
+		
+<!--{/if}-->	
+
+	<!--{if $list}-->
+	<!--{loop $list $day $values}-->
+		<!--{if $_GET['view']!='hot'}-->
+		<h4 class="feedtime">
+			<!--{if $day=='yesterday'}-->昨天
+			<!--{elseif $day=='today'}-->今天
+			<!--{elseif $day=='app'}-->看看大家都在玩什么
+			<!--{else}-->$day
+			<!--{/if}-->
+		</h4>
+		<!--{/if}-->
+		<ul>
+		<!--{loop $values $value}-->
+			<!--{template space_feed_li}-->
+		<!--{/loop}-->
+		</ul>
+	<!--{/loop}-->
+	
+	<!--{else}-->
+		<ul>
+			<li>没有相关动态</li>
+		</ul>
+	<!--{/if}-->
+	
+	<!--{if $filtercount}-->
+	<div class="notice" id="feed_filter_notice_{$start}">
+		根据您的<a href="cp.php?ac=privacy&op=view">筛选设置</a>，有 $filtercount 条动态被屏蔽 (<a href="javascript:;" onclick="filter_more($start);" id="a_feed_privacy_more">点击查看</a>)
+	</div>
+	<div id="feed_filter_div_{$start}" class="enter-content" style="display:none;">
+		<h4 class="feedtime">以下是被屏蔽的动态</h4>
+		<ul>
+		<!--{loop $filter_list $value}-->
+		<!--{eval $value = mkfeed($value);}-->
+		<!--{template space_feed_li}-->
+		<!--{/loop}-->
+		<li><a href="javascript:;" onclick="filter_more($start);">&laquo; 收起</a></li>
+		</ul>
+	</div>
+	<!--{/if}-->
+	
+<!--{if empty($_TPL['getmore'])}-->	
+	</div>
+
+	<!--{if $count==$perpage}-->
+	<div class="page" style="padding-top:20px;">
+		<a href="javascript:;" onclick="feed_more();" id="a_feed_more">查看更多动态</a>
+	</div>
+	<!--{/if}-->
+
+	<div id="ajax_wait"></div>
+
+	</div>
+</div>
+<!--/content-->
+
+
+<div id="rside" class="g-sd" style="width:250px;">
+        <div class="g-box style="width:250px;"">
+        	<div class="m-menu" style="width:250px;">
+            	<div class="menut" style="width:250px;"></div>
+                <div class="menum" style="width:250px;">
+                <style type="text/css">.large img {width:75px; height:54px;}</style>
+<ul>
+    <li class="first large" id="blogmanage" style="width:250px;">
+    	<a href="space.php" class="mi usname">
+        <span class="txt" style="width:250px;">
+        	<span class="lg1"><!--{eval echo stripslashes($space['username']);}--><!--{if $space[name]}-->&nbsp;<em>($space[name])</em><!--{/if}--></span>
+        	<span class="lg2">
+            上次登录:<!--{date('Y-m-d',$space[lastlogin],1)}-->
+            </span>
+        </span>
+        </a>
+        <!--当前用户头像-->
+        <!--{avatar($space[uid],big)}-->
+    </li>
+    <style type="text/css">.dtdiv{width:250px; background-color:#CCC; height:1px;}</style>
+        <!--{if empty($_SGLOBAL['supe_uid'])}-->
+    <li class="first"><div class="dtdiv"></div>
+    <a class="mi" href="do.php?ac=$_SCONFIG['login_action']">
+    <span class="icn icn-9"></span><span class="txt">登录</span>
+    <span class="inf inf-1"></span>
+    </a></li>
+    <li class="first"><div class="dtdiv"></div>
+    <a class="mi" href="do.php?ac=$_SCONFIG['register_action']">
+    <span class="icn icn-2"></span><span class="txt">注册</span>
+    </a></li>
+    <li class="first"><div class="dtdiv"></div>
+    <a class="mi" href="do.php?ac=lostpasswd">
+    <span class="icn icn-3"></span><span class="txt">找回密码</span>
+    </a></li>
+    <!--{/if}-->
+    <!--{if !empty($_SGLOBAL['supe_uid'])}-->
+    <li  class="first"><div class="dtdiv"></div>
+    <a href="space.php?do=friend" class="mi">
+    <span class="icn icn-1"></span><span class="txt">我的好友</span>
+    <span class="inf inf-1" id="rside-postcount"></span>
+    </a></li>
+    <li class="first"><div class="dtdiv"></div>
+    <a class="mi" href="space.php">
+    <span class="icn icn-9"></span><span class="txt">个人主页</span>
+    <span class="inf inf-1"></span>
+    </a></li>
+	<li class="first"><div class="dtdiv"></div>
+    <a class="mi mi-noipt" href="cp.php?ac=profile">
+    <span class="icn icn-2"></span><span class="txt">我的资料</span>
+    </a></li>  
+	<li class="first"><div class="dtdiv"></div>
+    <a class="mi mi-noipt" href="space.php?do=doing">
+    <span class="icn icn-3"></span><span class="txt">所有心情</span>
+    </a></li> 
+	<li class="first"><div class="dtdiv"></div>
+    <a class="mi mi-noipt" href="space.php?do=album">
+    <span class="icn icn-16"></span><span class="txt">全部照片</span>
+    </a></li>
+	<!--{if $space[allnum]}-->
+        <!--{if $space[addfriendnum]}-->
+        <li class="first"><div class="dtdiv"></div>
+        <a class="mi mi-noipt" href="cp.php?ac=friend&op=request">
+        <span class="icn icn-16"></span>
+        <span class="txt">$space[addfriendnum]个好友请求</span>
+        </a>
+        </li>
+        <!--{/if}-->
+        <!--{if $space[pmnum]}-->
+        <li class="first"><div class="dtdiv"></div>
+        <a class="mi mi-noipt" href="space.php?do=pm">
+        <span class="icn icn-11"></span>
+        <span class="txt">$space[pmnum]条新短消息</span>
+        </a>
+        </li>
+        <!--{/if}-->
+        <!--{if $space[pokenum]}-->
+        <li class="first"><div class="dtdiv"></div>
+        <a class="mi mi-noipt" href="cp.php?ac=poke">
+        <span class="icn icn-19"></span>
+        <span class="txt">$space[pokenum]个新招呼</span>
+        </a>
+        </li> 
+        <!--{/if}-->
+		<!--{if $space[notenum]}-->
+        <li class="first"><div class="dtdiv"></div><div style="margin-top:10px;">
+        <a href="space.php?do=notice">
+        <span class="icn icn-4"></span>
+        <span class="txt">$space[notenum] 条新通知</span>
+        </a></div>
+        </li>
+        <!--{/if}-->
+	<!--{/if}-->
+	<!--{/if}-->
+</ul>
+                </div>
+            </div>
+                <div class="dtdiv" style="margin-top:0.5px;"></div>
+        </div>
+        <div id="sidebar">
+	<!--{if $visitorlist}-->
+	<div class="sidebox">
+		<h2 class="title">
+			<p class="r_option">
+				<a href="space.php?uid=$space[uid]&do=friend&view=visitor">全部</a>
+			</p>
+			最近来访
+		</h2>
+		<ul class="avatar_list">
+			<!--{loop $visitorlist $key $value}-->
+			<li>
+				<!--{if $value[vusername] == ''}-->
+				<div class="avatar48"><img src="image/magic/hidden.gif" alt="匿名" /></a></div>
+				<p>匿名</p>
+				<p class="gray"><!--{date('n月j日',$value[dateline],1)}--></p>
+				<!--{else}-->
+				<div class="avatar48"><a href="space.php?uid=$value[vuid]"><!--{avatar($value[vuid],small)}--></a></div>
+				<p<!--{if $ols[$value[vuid]]}--> class="online_icon_p" title="在线"<!--{/if}-->><a href="space.php?uid=$value[vuid]" title="{$_SN[$value[vuid]]}">{$_SN[$value[vuid]]}</a></p>
+				<p class="gray"><!--{date('n月j日',$value[dateline],1)}--></p>
+				<!--{/if}-->
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+
+	<!--{if $olfriendlist}-->
+	<div class="sidebox">
+		<h2 class="title">
+			<p class="r_option">
+				<a href="space.php?uid=$space[uid]&do=friend">全部</a>
+			</p>
+			好友
+		</h2>
+		<ul class="avatar_list">
+			<!--{loop $olfriendlist $key $value}-->
+			<li>
+				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
+				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="在线"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
+			</li>
+			<!--{/loop}-->
+		</ul>
+	</div>
+	<!--{/if}-->
+
+	<!--{if $birthlist}-->
+	<div class="searchfriend">
+		<div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
+			<h3>好友生日提醒</h3>
+			<div class="box">
+			<table cellpadding="2" cellspacing="4">
+			<!--{loop $birthlist $key $values}-->
+			<tr>
+				<td align="right" valign="top" style="padding-left:10px;">
+				<!--{if $values[0]['istoday']}-->今天<!--{else}-->{$values[0][birthmonth]}-{$values[0][birthday]}<!--{/if}-->
+				</td>
+				<td style="padding-left:10px;">
+				<ul>
+				<!--{loop $values $value}-->
+				<li><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></li>
+				<!--{/loop}-->
+				</ul>
+				</td>
+			</tr>
+			<!--{/loop}-->
+			</table>
+			</div>
+		</div></div></div></div>
+	</div>
+	<!--{/if}-->
+	
+	<!--{if empty($_SCOOKIE['closefeedbox']) && $_SGLOBAL['ad']['feedbox']}-->
+	<div id="feed_box" class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
+		<div class="task_notice">
+			<a title="忽略" class="float_cancel" href="javascript:;" onclick="close_feedbox();">忽略</a>
+			<div class="task_notice_body">
+			<!--{ad/feedbox}-->
+			</div>
+		</div>
+	</div></div></div></div>
+	<!--{/if}-->
+    
+</div>
+</div>
+
+<!--/sidebar-->
+
+<script type="text/javascript">
+
+	var next = $start;
+	function feed_more() {
+		var x = new Ajax('XML', 'ajax_wait');
+		var html = '';
+		next = next + $perpage;
+		x.get('cp.php?ac=feed&op=get&start='+next+'&view=$_GET[view]&appid=$_GET[appid]&icon=$_GET[icon]&filter=$_GET[filter]&day=$_GET[day]', function(s){
+			html = '<h4 class="feedtime">以下是新读取的动态</h4>' + s;
+			$('feed_div').innerHTML += html;
+		});
+	}
+
+	function filter_more(id) {
+		if($('feed_filter_div_'+id).style.display == '') {
+			$('feed_filter_div_'+id).style.display = 'none';
+			$('feed_filter_notice_'+id).style.display = '';
+		} else {
+			$('feed_filter_div_'+id).style.display = '';
+			$('feed_filter_notice_'+id).style.display = 'none';
+		}
+	}
+
+	function close_feedbox() {
+		var x = new Ajax();
+		x.get('cp.php?ac=common&op=closefeedbox', function(s){
+			$('feed_box').style.display = 'none';
+		});
+	}
+	
+	var elems = selector('li[class~=magicthunder]', $('feed_div')); 
+	for(var i=0; i<elems.length; i++){		
+		magicColor(elems[i]); 
+	}
+</script>
+<!--{eval my_checkupdate();}-->
+<!--{eval my_showgift();}-->
+<!--{template footer}-->
+<!--{/if}-->

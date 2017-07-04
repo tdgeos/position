@@ -1,0 +1,198 @@
+<!--{template header3}-->
+<!--{if empty($_SGLOBAL['supe_uid'])}-->
+未登录
+<!--{else}-->
+<div class="g-bd">
+  <div class="g-bdc">
+	<script type="text/javascript" src="swfupload/swfupload/swfupload.js"></script>
+    <script type="text/javascript" src="swfupload/js/handlers.js"></script>
+    <script type="text/javascript" src="common/cumt/js/ajax_async.js"></script>
+<div class="g-mn" id="main">
+<!--{if $space[self]}-->    
+    <script type="text/javascript">
+		var swfu;
+		window.onload = function () {
+			swfu = new SWFUpload({
+				upload_url: "swfupload/upload.php",
+				post_params: {"PHPSESSID": "<?php echo session_id(); ?>"},
+
+				file_size_limit : "2 MB",	// 2MB
+				file_types : "*.jpg;*.png",
+				file_types_description : "图片文件",
+				file_upload_limit : 0,
+
+				swfupload_preload_handler : preLoad,
+				swfupload_load_failed_handler : loadFailed,
+				file_queue_error_handler : fileQueueError,
+				file_dialog_complete_handler : fileDialogComplete,
+				upload_progress_handler : uploadProgress,
+				upload_error_handler : uploadError,
+				upload_success_handler : uploadSuccess,
+				upload_complete_handler : uploadComplete,
+
+				button_image_url : "swfupload/images/SmallSpyGlassWithTransperancy_17x18.png",
+				button_placeholder_id : "spanButtonPlaceholder",
+				button_width: 180,
+				button_height: 18,
+				button_text : '<span class="button">请选择图片 <span class="buttonSmall">(2 MB Max)</span></span>',
+				button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
+				button_text_top_padding: 0,
+				button_text_left_padding: 18,
+				button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+				button_cursor: SWFUpload.CURSOR.HAND,
+				
+				flash_url : "swfupload/swfupload/swfupload.swf",
+				flash9_url : "swfupload/swfupload/swfupload_FP9.swf",
+
+				custom_settings : {
+					upload_target : "divFileProgressContainer"
+				},
+				
+				debug: false
+			});
+		};
+	</script>
+	<div class="publishcommon  js-postPhoto" style="display: block; ">
+            <div class="m-mlist">
+    <div class="mlistimg">
+                <div class="w-img" style="z-index:1;">     
+                    <a href="cp.php?ac=avatar"><!--{avatar($space[uid],big)}--></a>
+                </div>
+            </div>
+                <div class="mlistcnt">
+                    <div class="isay">
+                        <div class="isayt"><span class="isayc"></span></div>
+                        <div class="isaym">
+                            <div style="height: auto; min-height: 100px; visibility: visible; overflow: visible; "> 
+								<form method="post" name="doing" id="doingform" action="cp.php?ac=doing&view=$_GET[view]" class="post_doing" enctype="multipart/form-data">
+                                    <div class="publishMain ztag">
+                                    	<div class="photowrap ztag">
+                                                    <div class="photoList clearfix ztag">
+                                                        <div id="divFileProgressContainer" style="height: 25px; display:none"></div>
+                                                        <div id="thumb" ><ul id="thumbnails" class="upload-img-list"></ul></div>
+                                         				<div id="file_list" style="display:none"></div>
+                                                    </div>
+                                                    <!--图上传控件-->
+                                                        <div style="width: 180px; height: 18px; border: solid 1px #7FAAFF; background-color: #C5D9FF; padding: 2px;">
+                                                            <span id="spanButtonPlaceholder"></span>
+                                                            
+                                                        </div>
+                                    </div>
+                                                    <br />
+                                         <div class="publishArea" hidefocus="true">
+                                         		<textarea id="message" name="message" onkeyup="textCounter(this, 'maxlimit', 200)" onkeydown="ctrlEnter(event, 'add');" style="width:390px; height: 22px;"></textarea>
+                                         </div>
+                                         <div style="float:right; margin-top:-35px;">
+<input type="hidden" name="addsubmit" value="true" />
+                                              	<button class="w-bbtn w-bbtn-0 bindbtn ztag" hidefocus="true" >发表心情</button>
+<input type="hidden" name="refer" value="$theurl" />
+<input type="hidden" name="topicid" value="$topicid" />
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+                                         </div>
+                                    </div>
+                                                    </form>
+                            </div>
+                        </div>
+            			<div class="isayb"></div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+	<br>
+	<!--{/if}-->
+    <div id="dtest"></div>
+	<!--{if $dolist}-->
+	<!--{loop $dolist $dv}-->
+	<div class="m-mlist">
+		<!--{eval $doid = $dv[doid];}-->
+			<div class="mlistimg">
+                <div class="w-img" style="z-index:1;">     
+                    <a href="space.php?uid=$dv[uid]">
+                      <!--消息发布者头像-->
+                    <!--{avatar($dv[uid],small)}-->
+                    </a>
+                </div>
+            </div>
+
+				<div class="mlistcnt">
+                    <div class="isay">
+                        <div class="isayt">
+                        <span class="isayc">
+                        </span>
+                        </div>
+                    
+                        <div class="isaym">
+                            <div class="w-who">
+                                <a href="space.php?uid=$dv[uid]">{$_SN[$dv[uid]]}</a>:<span class="gray">(<!--{date('m-d H:i',$dv[dateline],1)}-->)</span>
+                                    <div style="text-align:right; margin-top:-20px;">
+                                        <!--{if $dv[uid]==$_SGLOBAL[supe_uid]}-->
+                                        <a href="cp.php?ac=doing&op=delete&doid=$doid&id=$dv[id]" id="doing_delete_{$doid}_{$dv[id]}" onclick="ajaxmenu(event, this.id)" class="re gray">删除</a> &nbsp;<!--{/if}-->
+                                        <a href="javascript:;" onclick="docomment_form($doid, 0);">回复</a>
+                                    </div>
+                                <span>$dv[message]</span>
+                                 <!--{eval $list = $clist[$doid];}-->
+                            <div id="docomment_$doid"<!--{if !$list}--> style="display:none;"<!--{/if}-->>
+                                    
+                                <span id="docomment_form_{$doid}_0"></span>
+                                <!--{template space_doing_li}-->
+                            </div>   
+                            </div>
+                            <div class="w-opt">   
+                                <span class="gray"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="isayb"></div>
+                    </div>
+				</div>
+                </div>
+		<!--{/loop}-->
+	<div class="page">$multi</div>
+	<!--{else}-->
+	<div class="c_form">现在还没有记录。<!--{if $space[self]}-->你可以用一句话记录下这一刻在做什么。<!--{/if}--></div>
+	<!--{/if}-->
+   </div>  
+<div id="rside" class="g-sd">
+        <div class="g-box">
+        	<div class="m-menu">
+            	<div class="menut"></div>
+                <div class="menum">
+                <style type="text/css">.large img {width:55px; height:54px;}</style>
+<ul>
+    <li class="first large" id="blogmanage">
+    	<a href="space.php" class="mi usname">
+        <span class="txt">
+        	<span class="lg1"><!--{eval echo stripslashes($space['username']);}--><!--{if $space[name]}-->&nbsp;<em>($space[name])</em><!--{/if}--></span>
+        	<span class="lg2">
+            上次登录:<!--{date('Y-m-d',$space[lastlogin],1)}-->
+            </span>
+        </span>
+        </a>
+        <!--{avatar($space[uid],big)}-->
+    </li>
+    <!--{if !empty($_SGLOBAL['supe_uid'])}-->
+    <li  class="first"><div class="crtp"></div>
+    <a href="space.php?do=friend" class="mi">
+    <span class="icn icn-1"></span><span class="txt">我的好友</span>
+    <span class="inf inf-1" id="rside-postcount"></span>
+    </a></li>
+    <li class="first"><div class="crtp"></div>
+    <a class="mi" href="space.php">
+    <span class="icn icn-9"></span><span class="txt">个人主页</span>
+    <span class="inf inf-1"></span>
+    </a></li>
+	<li class="first"><div class="crtp"></div>
+    <a class="mi mi-noipt" href="cp.php?ac=profile">
+    <span class="icn icn-2"></span><span class="txt">我的资料</span>
+    </a></li>   
+    <!--{/if}-->
+</ul>
+                </div>
+                <div class="menub"></div>
+            </div>
+        </div>
+</div>
+</div>
+</div>
+<!--{/if}-->
+<!--{template footer2}-->

@@ -1,0 +1,121 @@
+<!--{template header}-->
+
+<!--{if $_GET[op] == 'delete'}-->
+
+<h1>删除公告</h1>
+<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<div class="popupmenu_inner">
+<form method="post" action="cp.php?ac=blog&op=delete&blogid=$blogid">
+	<p>确定删除指定的公告吗？</p>
+	<p class="btn_line">
+		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+		<input type="hidden" name="deletesubmit" value="true" />
+		<input type="submit" name="btnsubmit" value="确定" class="w-bbtn w-bbtn-0 bindbtn ztag" />
+	</p>
+<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+</form>
+</div>
+
+<!--{else}-->
+
+<script language="javascript" src="image/editor/editor_function.js"></script>
+<script language="javascript" src="source/script_blog.js"></script>
+<div class="c_form">
+
+	<style type="text/css">
+		.userData {behavior:url(#default#userdata);}
+		#schoolinfo select{ width:130px;}
+	</style>
+    <script src="../../js/ajax.js"></script>
+<script type="text/javascript">
+ function getselectvalue(id){	 
+	var obj = document.getElementById(id); //定位id
+	var index = obj.selectedIndex; // 选中索引
+	var text = obj.options[index].text; // 选中文本
+	var value = obj.options[index].value; // 选中值
+	return text.utf8urlencode();
+}
+String.prototype.utf8urlencode = function(){
+		var input = this;
+        var output = "";   
+        var currentChar = '';   
+        for(var counter = 0; counter < input.length; counter++){   
+            currentChar = input.charCodeAt(counter);   
+            if((0 <= currentChar) && (currentChar <= 127)){
+                output = output + UTF8UrlEncodeChar(currentChar);   
+			}else
+			{
+                output = output + encodeURIComponent(input.charAt(counter)); 
+			}
+        }   
+        var reslut = output.toUpperCase();   
+        return reslut.replace(/%26/, "%2526");    
+}
+function UTF8UrlEncodeChar(input){ 
+    if(input <= 0x7F) return "%" + input.toString(16);
+    var leadByte = 0xFF80;
+    var hexString = "";
+    var leadByteSpace = 5;
+    while(input > (Math.pow(2, leadByteSpace + 1) - 1)){
+        hexString = "%" + ((input & 0x3F) | 0x80).toString(16) + hexString;
+        leadByte = (leadByte >> 1);
+        leadByteSpace--;
+        input = input >> 6;
+    }
+	return ("%" + (input | (leadByte & 0xFF)).toString(16) + hexString).toUpperCase();
+} 
+</script>
+
+	<form method="post" action="cp_new.php" enctype="multipart/form-data">
+<div id='ajaxtest' style="height:20px; width:100px"></div>
+                <div id="schoolinfo">
+					<select name="scho" id="schoid" onchange="study365ajax('/source/schoolinfo.php','type=1&schoName='+getselectvalue('schoid')+'&collName='+getselectvalue('collegeid')+'&majoName='+getselectvalue('majoid'),'schoolinfo')" >
+						 <option value="所有学校">所有学校</option>
+                         <!--{loop $schoName $value}-->
+                         <!--{if $vaule == '".$schoName[0]."'}--> 
+						<option value="$value" selected >$value</option>	
+                        <!--{else}-->
+                        <option value="$value"  >$value</option>
+                        <!--{/if}-->
+                        
+					<!--{/loop}-->
+					</select>
+                 
+					<select name="coll" id="collegeid" onchange="study365ajax('/source/schoolinfo.php','type=2&schoName='+getselectvalue('schoid')+'&collName='+getselectvalue('collegeid')+'&majoName='+getselectvalue('majoid'),'schoolinfo')">
+                    <option value="所有学院">所有学院</option>
+						  <!--{loop $collName $value}-->
+						<option value="$value" >$value</option>	
+					<!--{/loop}-->
+					</select>
+                 
+                     <select name="majo" id="majoid" onchange="study365ajax('/source/schoolinfo.php','type=3&schoName='+getselectvalue('schoid')+'&collName='+getselectvalue('collegeid')+'&majoName='+getselectvalue('majoid'),'schoolinfo')">
+                      <option value="所有专业">所有专业</option>
+						  <!--{loop $majoName $value}-->
+						<option value="$value" >$value</option>	
+					      <!--{/loop}-->
+					</select>
+                    
+                    <select name="class" id="clasid">
+                     <option value="所有班级">所有班级</option>
+						<!--{loop $clasName $value}-->
+						<option value="$value" >$value </option>	
+					    <!--{/loop}-->
+					</select>
+                   </div>
+				<div>&nbsp;</div>
+	标题：<input type="text" class="txt" id="subject" name="subject" value="$blog[subject]" size="60" onblur="relatekw();" style="width:498px;" />
+				<div>&nbsp;</div>
+				<textarea cols="180" rows="20" name="message"></textarea>
+		
+		<input type="hidden" name="blogsubmit" value="true" />
+		<input type="button" id="blogbutton" name="blogbutton" value="提交发布" onclick="validate(this);" style="display: none;" />
+		<input type="hidden" name="topicid" value="$_GET[topicid]" />
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+	</form>
+	
+			<input type="button" id="issuance" onclick="document.getElementById('blogbutton').click();" value="保存发布" class="w-bbtn w-bbtn-0 bindbtn ztag" style="margin-top:18px;" /></td>
+
+</div>
+
+<!--{/if}-->
+<!--{template footer}-->
